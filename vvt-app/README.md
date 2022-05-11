@@ -1,16 +1,21 @@
 # ⚡ Vite ✔ Vue 3 🌻 Tailwind CSS
 
-安裝Vite官網上提及的社群template 已包含vue3, tailwindcss
+- 安裝Vite官網上提及的社群template 已包含vue3, tailwindcss
+```sh
 npx degit web2033/vite-vue3-tailwind-starter vvt-app
+```
 並執行
+```sh
 npm install
 npm run dev
+```
 確認專案可正常執行
-補上其他所需package (pug, firebase)
+- 補上其他所需package (pug, firebase)
+```sh
 npm i vue-cli-plugin-pug
 npm i firebase
-
-在firebase創建專案
+```
+- 在firebase創建專案
 
 <!-- ![Vite, Vue, Tailwind CSS](https://user-images.githubusercontent.com/11320080/111277027-a9384c00-8640-11eb-8323-21889bd7c609.png) -->
 

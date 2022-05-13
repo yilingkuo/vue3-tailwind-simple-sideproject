@@ -1,30 +1,38 @@
-<template>
-<div class="max-w-sm rounded overflow-hidden shadow-lg">
-    <img class="w-full" :src="profilePhoto">
-    {{ profilePhoto }}
-    <div class="px-6 py-4">
-        <div class="font-bold text-xl mb-2">{{ name }}</div>
-        <!-- <p class="text-gray-700 text-base">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-        </p> -->
-    </div>
-    <!-- <div class="px-6 pt-4 pb-2">
-        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
-        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
-        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
-    </div> -->
-</div>
-</template>
-
 <script>
-export default {
-    props: {
-        profilePhoto: String,
-        name: String
-    }
-}
+
+</script>
+<script setup>
+import { ref, computed } from "vue"
+import { HeartIcon } from '@heroicons/vue/solid'
+import { HeartIcon as HeartOutline } from '@heroicons/vue/outline'
+
+const props = defineProps({
+    profilePhoto: String,
+    name: Object
+})
+// function fullname ()= computed(() => {
+//     console.log(props.name)
+//     return props.name.first + ' ' + props.name.last
+// })
+let fullname = computed({
+    get: () => props.name.first + ' ' + props.name.last
+})
 </script>
 
 <style>
 
 </style>
+<template lang="pug">
+div(class=' h-60 w-full lg:max-w-full lg:flex')
+  div(class=' shadow-lg bg-white rounded lg:rounded-md xl:rounded-lg p-4 flex flex-col justify-between items-center leading-normal')
+    img.w-40.h-40.rounded-full(:src='profilePhoto' alt='Avatar of Writer')
+    .flex.justify-between.pt-3.w-40.text-md
+      .col-10
+        p.text-gray-900.leading-none {{ fullname }}
+        p.text-gray-600 Aug 10
+      .col-2.text-center
+        HeartIcon(class='h-10 w-10 text-red-400')
+        HeartOutline(class='h-10 w-10 text-red-400')
+            
+            
+</template>

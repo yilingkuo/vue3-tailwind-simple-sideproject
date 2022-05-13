@@ -10,7 +10,9 @@
     "firebase": "^9.8.1",
     "vite-plugin-pug": "^0.3.1",
     "vue": "^3.2.33",
-    "vue-router": "^4.0.15"
+    "vue-pagination-tw": "^0.1.2",
+    "vue-router": "^4.0.15",
+    "vue-tailwind": "^2.5.1"
   },
   "devDependencies": {
     "@headlessui/vue": "^1.6.1",

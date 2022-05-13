@@ -3,7 +3,14 @@ import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue({
+    template: {
+      compilerOptions: {
+        // treat all tags with a dash as custom elements
+        isCustomElement: (tag) => tag.includes('hero')
+      }
+    }
+  })],
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),

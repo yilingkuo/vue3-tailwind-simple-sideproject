@@ -92,7 +92,7 @@ const calculatedPages = computed(() => {
   <div :class="{ 'flex justify-between items-center': goButton }">
     <div :class="{ 'flex justify-between items-center': (props.styled === 'simple') }">
       <nav
-        class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
+        class="relative z-0 inline-flex rounded-md -space-x-px shadow-t-lg shadow-teal-500/50 "
         aria-label="Pagination"
         :class="{ 'mb-3': props.styled === 'centered' }"
       >
@@ -172,7 +172,7 @@ const calculatedPages = computed(() => {
         </a>
       </nav>
       <div :class="{ 'order-first': props.styled === 'simple' }">
-        <p class="text-sm text-gray-700">
+        <p class="text-sm text-gray-100">
           Showing
           <span class="font-medium">{{ paginationFrom }}</span>
           to

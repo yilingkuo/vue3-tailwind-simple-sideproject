@@ -12,7 +12,8 @@
     "vue": "^3.2.33",
     "vue-pagination-tw": "^0.1.2",
     "vue-router": "^4.0.15",
-    "vue-tailwind": "^2.5.1"
+    "vue-tailwind": "^2.5.1",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@headlessui/vue": "^1.6.1",

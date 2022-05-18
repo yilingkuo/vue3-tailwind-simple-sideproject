@@ -24,7 +24,7 @@ watch (pageNumber, (curVal, preVal) => {
 }, {
 })
 
-let perpage = ref(10)
+let perpage = ref(30)
 let perpageOpts = ref([10, 30, 50])
 const currentPageItems = computed(() => {
   return userdata.value.slice((pageNumber.value - 1) * parseInt(perpage.value), (pageNumber.value - 1) * parseInt(perpage.value) + parseInt(perpage.value))
@@ -41,6 +41,7 @@ const updatePerPage = (val) => {
   console.log(currentPageItems.value)
   perpage.value=val
 }
+
 </script>
 
 <template>
@@ -59,7 +60,7 @@ const updatePerPage = (val) => {
           <ViewGridIcon class="col-1 w-10 h-10 text-gray-100 rounded hover:bg-sky-700/50"/>
         </div>
         <div class=" grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-          <Card  v-for="(user, index) in currentPageItems" :key="index" :profile-photo="user.picture.large" :name="user.name" />
+          <Card  v-for="(user, index) in currentPageItems" :key="index" :profile-photo="user.picture.large" :name="user.name" :detail="user" />
         </div>
         <div class="w-full flex items-center justify-center pt-3">
           <Pagination

@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app'
 import { getAnalytics } from "firebase/analytics"
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
-
+import { getDatabase } from "firebase/database"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -10,6 +10,7 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } f
 const firebaseConfig = {
   apiKey: "AIzaSyC5VU2xbsJ5lXz1-RVh2EoNTEZDRrt1sp4",
   authDomain: "frontiercooltest.firebaseapp.com",
+  databaseURL: "https://frontiercooltest-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "frontiercooltest",
   storageBucket: "frontiercooltest.appspot.com",
   messagingSenderId: "93262006441",
@@ -20,6 +21,7 @@ const firebaseConfig = {
 // Initialize Firebase
 export const firbase = initializeApp(firebaseConfig)
 export const auth = getAuth(firbase)
+export const db = getDatabase()
 const analytics = getAnalytics(firbase)
 /*
 export const auth = getAuth()

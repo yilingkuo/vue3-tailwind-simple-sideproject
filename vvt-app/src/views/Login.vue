@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from 'vue'
-import { firbase } from '../firebase'
+import { useRouter, useRoute } from "vue-router"
+import { firbase, auth } from '../firebase'
+import { setSessionStorage } from '../commonjs/methods'
 import ButtonRepo from '@/components/ButtonRepo.vue'
 import Input from '@/components/Input.vue'
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth"
@@ -8,8 +10,9 @@ const token = sessionStorage.getItem('auth') || ''
 
 const email = ref('')
 const password = ref('') 
+const router = useRouter()
+const route = useRoute()
 
-const auth = getAuth(firbase)
 const login = () => {
   console.log(email.value, password.value)
   signInWithEmailAndPassword(auth, email.value, password.value)
@@ -17,7 +20,13 @@ const login = () => {
     console.log('credential:' ,userCredential.user)
     // Signed in 
     const user = userCredential.user;
-    // ...
+    // 存登入status 有效一天
+    setSessionStorage('auth', user, 1440)
+    // 跳轉至主頁
+    router.push({
+      path: '/main',
+      replace: true
+    })
   })
   .catch((error) => {
     const errorCode = error.code;

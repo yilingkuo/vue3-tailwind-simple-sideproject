@@ -35,6 +35,7 @@ const login = () => {
   })
 }
 
+// display name https://stackoverflow.com/questions/38389341/firebase-create-user-with-email-password-display-name-and-photo-url
 const register = () => {
   console.log(email.value, password.value)
   createUserWithEmailAndPassword(auth, email.value, password.value)
@@ -61,13 +62,6 @@ const register = () => {
     >
      
       <div class="h-60 shadow-lg bg-white rounded lg:rounded-md xl:rounded-lg p-4 flex flex-col justify-center items-center leading-normal">
-        <!-- <div class="inline-flex rounded-md">
-          <input id="input1" class="w-full border px-4 py-2 rounded focus:border-blue-500 focus:shadow-outline outline-none" type="text" autofocus placeholder="Full name..." />
-        </div>
-        <div class="inline-flex rounded-md">
-           <label class="block mb-1 text-sm" for="input1">Full name:</label>
-          <input id="input1" class="w-full border px-4 py-2 rounded focus:border-blue-500 focus:shadow-outline outline-none" type="text" autofocus placeholder="Full name..." />
-        </div> -->
         <div class="py-2">
           <Input placeholder="信箱" v-model="email" />
         </div>
@@ -75,17 +69,17 @@ const register = () => {
           <Input placeholder="密碼" v-model="password" />
         </div>
         <div class="py-1 w-full">
-          <button type="button" @click="login" class="block w-full 
+          <button @click="login" class="block w-full 
             mr-4 py-2 px-4
             rounded-full border-0
             text-sm font-semibold
-            bg-violet-50 text-violet-700
-            hover:bg-violet-100
+            bg-red-200 text-red-700
+            hover:bg-red-100
           ">登入</button>
         </div>
         <div class="py-1 w-full">
           <span class="sr-only">Choose profile photo</span>
-          <button type="button" @click="login" class="block w-full  
+          <button @click="register" class="block w-full  
             mr-4 py-2 px-4
             rounded-full border-0
             text-xs font-normal

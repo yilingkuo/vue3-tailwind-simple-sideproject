@@ -33,6 +33,8 @@ function addChildren(a, c, t) {
     console.log('parent node:', i)
     if (i !== -1) {
       addChildren(a[i].children, c, t);
+    } else {
+      
     }
   }
 }
@@ -54,6 +56,12 @@ function setValue(v, index) {
     state.inputArray[index].name = v
   })
 }
+function setRemovePair(index) {
+  store.$patch((state) => {
+    state.inputArray.splice(index, 1)
+    // state.inputArray[index].name = v
+  })
+}
 </script>
 
 <template>
@@ -63,7 +71,7 @@ function setValue(v, index) {
       class="mx-auto px-4 py-12 sm:px-6  lg:py-16 lg:px-8"
     >
       <div v-for="(pair, index) in store.inputArray" :key="index">
-        <Pair :keyModel="pair.path" :valueModel="pair.name" @update:keyModel="value => setKey(value, index)" @update:valueModel="value => setValue(value, index)"/>
+        <Pair :keyModel="pair.path" :valueModel="pair.name" @update:keyModel="value => setKey(value, index)" @update:valueModel="value => setValue(value, index)" @removePair="setRemovePair(index)"/>
       </div>
       <div class="py-1 w-full">
         <button @click="addpair" class="block w-full 

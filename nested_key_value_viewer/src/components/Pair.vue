@@ -16,6 +16,15 @@
           placeholder="Value"
         >
       </div>
+      <div>
+        <button @click="emit('removePair')" class="block w-full 
+          mr-4 py-2 px-4
+          rounded-full border-0
+          text-sm font-semibold
+          bg-red-200 text-red-700
+          hover:bg-red-100
+        ">-</button>
+      </div>
   </div>
 </template>
 
@@ -30,7 +39,7 @@ const props = defineProps({
     default: ''
   }
 })
-const emit = defineEmits(['update:valueModel', 'update:keyModel'])
+const emit = defineEmits(['update:valueModel', 'update:keyModel', 'removePair'])
 
 </script>
 

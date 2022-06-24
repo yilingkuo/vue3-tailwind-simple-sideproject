@@ -4,23 +4,49 @@ import Pair from '@/components/Pair.vue'
 import TreeItem from '@/components/TreeItem.vue'
 import { useTreeNodesStore } from '@/stores/treenodes'
 // https://stackoverflow.com/questions/50736351/make-nested-object-structure-from-flat-structure-and-reverse
-const inputArray = ref([{path:'x',name:'1'},{path:'y',name:'2'},{path:'z',name:'3'},{path:'z.aa',name:'4'},{path:'z.qq',name:'5'},{path:'z.aa.cc',name:'6'},{path:'z.aa.ss',name:'7'},{path:'s',name:'8'}]);
+
 const result = computed(() => {
   return store.inputArray.reduce((a,c) => {
     let t = c.path.split(".");
-    console.log(t)
     addChildren(a,c,t);
     return a;
   }, [])
 })
 const store = useTreeNodesStore()
+JSON.unflatten = function(data) {
+    "use strict";
+    if (Object(data) !== data || Array.isArray(data))
+        return data;
+    var result = {}, cur, prop, parts, idx;
+    for(var p in data) {
+        cur = result, prop = "";
+        parts = p.split(".");
+        for(var i=0; i<parts.length; i++) {
+            idx = !isNaN(parseInt(parts[i]));
+            cur = cur[prop] || (cur[prop] = (idx ? [] : {}));
+            prop = parts[i];
+        }
+        cur[prop] = data[p];
+    }
+    return result[""];
+}
 // watch(result, (curVal, oldVal) => { 
 //    console.log(curVal)
 // },{ 
 //    immediate:true,
 //    deep:true
 //   })
-
+function findParentNode (a,c,t) {
+  let val = t.shift();
+  const isParent = ({path}) => path.split(".").pop() === val;
+  var i = a.findIndex(isParent);
+  if (i !== -1) {
+    addChildren(a[i].children, c, t);
+  } else {
+    a.push({ path: val, children : []})
+    findParentNode(a,c,t)
+  }
+}
 function addChildren(a, c, t) {
   let val = t.shift();
   if(!t.length) {
@@ -29,12 +55,23 @@ function addChildren(a, c, t) {
     // 兩層以上 需要取path最尾端的node
     const isParent = ({path}) => path.split(".").pop() === val;
     var i = a.findIndex(isParent);
-    console.log('t.shift:', val)
-    console.log('parent node:', i)
+
     if (i !== -1) {
       addChildren(a[i].children, c, t);
     } else {
-      
+      console.log('t.shift:', val)
+      console.log('parent node:', a)
+      console.log(c)
+      console.log(t)
+      let removeparentnode = {}
+      // let newt = c.path.split(".");
+      // console.log('newt', newt)
+      // newt.shift();
+      // pathNode.path.split(".").pop()
+      a.push({ path: val, children : []})
+      var i = a.findIndex(isParent);
+      console.log(a)
+      addChildren(a, c, t)
     }
   }
 }
@@ -64,31 +101,16 @@ function setRemovePair(index) {
 }
 </script>
 
-<template>
-  <div class="bg-gray-100 h-full flex ">
-    <div
+<template lang="pug">
+div(class='bg-gray-100 h-full flex')
+  div(class='mx-auto px-4 py-12 sm:px-6 lg:py-16 lg:px-8')
+    div(v-for='(pair, index) in store.inputArray' :key='index')
+      Pair(:key-model='pair.path' :value-model='pair.name' @update:key-model='value => setKey(value, index)' @update:value-model='value => setValue(value, index)' @remove-pair='setRemovePair(index)')
 
-      class="mx-auto px-4 py-12 sm:px-6  lg:py-16 lg:px-8"
-    >
-      <div v-for="(pair, index) in store.inputArray" :key="index">
-        <Pair :keyModel="pair.path" :valueModel="pair.name" @update:keyModel="value => setKey(value, index)" @update:valueModel="value => setValue(value, index)" @removePair="setRemovePair(index)"/>
-      </div>
-      <div class="py-1 w-full">
-        <button @click="addpair" class="block w-full 
-          mr-4 py-2 px-4
-          rounded-full border-0
-          text-sm font-semibold
-          bg-red-200 text-red-700
-          hover:bg-red-100
-        ">新增節點</button>
-      </div>
-    </div>
-    <div
-    class="mx-auto px-4 py-12 sm:px-6  lg:py-16 lg:px-8"
-    >
-        <TreeItem class="item" v-for="(t, index) in result" :key="index" :pathNode="t"></TreeItem>
-    </div>
-  </div>
+    div(class='py-1 w-full')
+      button(class='block w-full mr-4 py-2 px-4 rounded-full border-0 text-sm font-semibold bg-red-200 text-red-700 hover:bg-red-100' @click='addpair') 新增節點
+  div(class='mx-auto px-4 py-12 sm:px-6 lg:py-16 lg:px-8')
+    TreeItem(class='item' v-for='(t, index) in result' :key='index' :path-node='t')
 </template>
 
 <style>

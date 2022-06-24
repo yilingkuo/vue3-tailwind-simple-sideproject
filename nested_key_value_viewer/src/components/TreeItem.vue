@@ -34,7 +34,7 @@ function addChild() {
       :class="{ 'font-bold': isFolder }"
       @click="toggle"
       @dblclick="changeType">
-      {{ pathNode.path }}: {{ pathNode.name }}
+      {{ pathNode.path.split(".").pop() }}: {{ pathNode.name }}
       <span v-if="isFolder">[{{ isOpen ? '-' : '+' }}]</span>
     </div>
     <ul  class="list-disc list-outside m-2" v-show="isOpen" v-if="isFolder">

@@ -20,6 +20,24 @@ const logout = () => {
     
   }
 }
+// // set favorites write to db
+// import { ref as firebaseRef, set, push, child, get } from "firebase/database";
+// import { db } from './firebase'
+// const userprofile =  getSessionStorage('auth')
+// // console.log('user profile :', userprofile)
+// const postListRef = firebaseRef(db, 'users_fav/' + userprofile.uid);
+// const checkFav = () => {
+//   console.log(postListRef)
+//   get(postListRef).then((snapshot) => {
+//     if (snapshot.exists()) {
+//       console.log(snapshot.val());
+//     } else {
+//       console.log("No data available");
+//     }
+//   }).catch((error) => {
+//     console.error(error);
+//   });
+// }
 </script>
 
 <template>
@@ -34,11 +52,18 @@ const logout = () => {
             {{ $route.meta.title }} 
           </h1>
         </div>
-        <div v-if="$route.path !== '/'" class="col-1 ">
-          <button type="button" @click="logout" class="block w-full  
+        <div v-if="$route.path !== '/'" class="col-3 flex flex-nowrap">
+          <button type="button" @click="checkFav" class="block w-full  whitespace-nowrap
             mr-4 py-2 px-4
             rounded-full border-0
-            text-xs font-bold
+            text-sm font-bold
+            bg-transparent text-gray-100
+            hover:bg-teal-100 hover:text-teal-700
+          ">收藏清單</button>
+          <button type="button" @click="logout" class="no-wrap block w-full  whitespace-nowrap
+            mr-4 py-2 px-4
+            rounded-full border-0
+            text-sm font-bold
             bg-transparent text-gray-100
             hover:bg-teal-100 hover:text-teal-700
           ">登出</button>

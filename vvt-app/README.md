@@ -20,7 +20,7 @@
     確認專案可正常執行
 - 補上其他所需package (pug, firebase)
     ```sh
-    npm i vue-cli-plugin-pug
+    npm i vite-plugin-pug
     npm i firebase
     ```
 - 在firebase創建專案
